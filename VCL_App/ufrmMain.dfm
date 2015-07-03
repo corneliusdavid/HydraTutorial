@@ -2,7 +2,7 @@ object frmVCLApp: TfrmVCLApp
   Left = 0
   Top = 0
   Caption = 'VCL App'
-  ClientHeight = 209
+  ClientHeight = 224
   ClientWidth = 325
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -22,7 +22,7 @@ object frmVCLApp: TfrmVCLApp
     Width = 325
     Height = 24
     AutoSize = True
-    ButtonWidth = 60
+    ButtonWidth = 66
     Caption = 'ToolBar1'
     Flat = False
     Images = ImageList1
@@ -37,7 +37,7 @@ object frmVCLApp: TfrmVCLApp
       AutoSize = True
     end
     object ToolButton4: TToolButton
-      Left = 49
+      Left = 55
       Top = 0
       Width = 8
       Caption = 'ToolButton4'
@@ -45,7 +45,7 @@ object frmVCLApp: TfrmVCLApp
       Style = tbsSeparator
     end
     object ToolButton5: TToolButton
-      Left = 57
+      Left = 63
       Top = 0
       Action = actHelpAbout
       AutoSize = True
@@ -55,15 +55,30 @@ object frmVCLApp: TfrmVCLApp
     Images = ImageList1
     Left = 48
     Top = 48
-    object File1: TMenuItem
+    object mnuFile: TMenuItem
       Caption = '&File'
-      object Exit1: TMenuItem
+      object itmFileExit: TMenuItem
         Action = actFileExit
       end
     end
-    object Help1: TMenuItem
+    object mnuPlugins: TMenuItem
+      Caption = '&Plugins'
+      object LoadPlugins1: TMenuItem
+        Action = actLoadPlugins
+      end
+      object UnloadPlugins1: TMenuItem
+        Action = actUnloadPlugins
+      end
+      object N1: TMenuItem
+        Caption = '-'
+      end
+      object ShowPlugins1: TMenuItem
+        Action = actShowPlugins
+      end
+    end
+    object mnuHelp: TMenuItem
       Caption = '&Help'
-      object About1: TMenuItem
+      object itmHelpAbout: TMenuItem
         Action = actHelpAbout
       end
     end
@@ -84,6 +99,18 @@ object frmVCLApp: TfrmVCLApp
       Hint = 'About|Information about this program'
       ImageIndex = 1
       OnExecute = actHelpAboutExecute
+    end
+    object actLoadPlugins: TAction
+      Caption = '&Load Plugins'
+      OnExecute = actLoadPluginsExecute
+    end
+    object actUnloadPlugins: TAction
+      Caption = '&Unload Plugins'
+      OnExecute = actUnloadPluginsExecute
+    end
+    object actShowPlugins: TAction
+      Caption = '&Show Plugins'
+      OnExecute = actShowPluginsExecute
     end
   end
   object ImageList1: TImageList
@@ -233,7 +260,20 @@ object frmVCLApp: TfrmVCLApp
     AutoLoad = False
     EnforceSecurity = False
     ResolveInterfacesToOwner = True
-    Left = 136
+    Left = 160
     Top = 64
+  end
+  object dlgPluginList: TTaskDialog
+    Buttons = <>
+    Caption = 'List of Plug-ins'
+    CommonButtons = [tcbClose]
+    DefaultButton = tcbClose
+    ExpandButtonCaption = 'Show Modules'
+    Flags = [tfPositionRelativeToWindow]
+    RadioButtons = <>
+    Text = '0 Plugins'
+    Title = 'Hydra Plugins'
+    Left = 192
+    Top = 144
   end
 end
