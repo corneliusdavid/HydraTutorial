@@ -14,6 +14,7 @@ object frmVCLApp: TfrmVCLApp
   OldCreateOrder = False
   Position = poScreenCenter
   Scaled = False
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 16
   object ToolBar1: TToolBar
@@ -51,6 +52,18 @@ object frmVCLApp: TfrmVCLApp
       AutoSize = True
     end
   end
+  object pnlPlugins: TPanel
+    Left = 0
+    Top = 24
+    Width = 325
+    Height = 200
+    Align = alClient
+    TabOrder = 1
+    ExplicitLeft = 80
+    ExplicitTop = 120
+    ExplicitWidth = 185
+    ExplicitHeight = 41
+  end
   object MainMenu1: TMainMenu
     Images = ImageList1
     Left = 48
@@ -80,6 +93,12 @@ object frmVCLApp: TfrmVCLApp
       Caption = '&Help'
       object itmHelpAbout: TMenuItem
         Action = actHelpAbout
+      end
+      object AboutfromPlugin1: TMenuItem
+        Action = actHelpAboutPluginModal
+      end
+      object Aboutfromapluginnonmodal1: TMenuItem
+        Action = actHelpAboutPluginNonModal
       end
     end
   end
@@ -111,6 +130,17 @@ object frmVCLApp: TfrmVCLApp
     object actShowPlugins: TAction
       Caption = '&Show Plugins'
       OnExecute = actShowPluginsExecute
+    end
+    object actHelpAboutPluginModal: TAction
+      Category = 'Help'
+      Caption = 'About dialog from &Plugin'
+      Hint = 'About | Show the About box from a plugin'
+      OnExecute = actHelpAboutPluginModalExecute
+    end
+    object actHelpAboutPluginNonModal: TAction
+      Category = 'Help'
+      Caption = 'About from a plugin, &non-modal'
+      OnExecute = actHelpAboutPluginNonModalExecute
     end
   end
   object ImageList1: TImageList
@@ -259,6 +289,8 @@ object frmVCLApp: TfrmVCLApp
   object HYModuleManager1: THYModuleManager
     AutoLoad = False
     EnforceSecurity = False
+    OnAfterLoadModule = HYModuleManager1AfterLoadModule
+    OnBeforeUnloadModule = HYModuleManager1BeforeUnloadModule
     ResolveInterfacesToOwner = True
     Left = 160
     Top = 64
