@@ -30,10 +30,8 @@ begin
   anInstance := TSimpleAboutPlugin.Create(NIL);
 end;
 
-resourcestring
-  sDescription = '';
-
 const
+  sDescription = 'A simple visual plugin written with standard Delphi VCL to show an "about" box.';
   sRequiredPrivilege = '';
   sUserData = '';
 
