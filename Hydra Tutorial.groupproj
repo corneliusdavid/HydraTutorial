@@ -6,6 +6,9 @@
 			<Projects Include="VCL_App\StandardVCL.dproj">
 				<Dependencies/>
 			</Projects>
+			<Projects Include="VCL_Plugin\AboutPluginModule.dproj">
+				<Dependencies/>
+			</Projects>
 		</ItemGroup>
 		<ProjectExtensions>
 			<Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -23,14 +26,23 @@
 		<Target Name="StandardVCL:Make">
 			<MSBuild Targets="Make" Projects="VCL_App\StandardVCL.dproj"/>
 		</Target>
+		<Target Name="AboutPluginModule">
+			<MSBuild Projects="VCL_Plugin\AboutPluginModule.dproj"/>
+		</Target>
+		<Target Name="AboutPluginModule:Clean">
+			<MSBuild Targets="Clean" Projects="VCL_Plugin\AboutPluginModule.dproj"/>
+		</Target>
+		<Target Name="AboutPluginModule:Make">
+			<MSBuild Targets="Make" Projects="VCL_Plugin\AboutPluginModule.dproj"/>
+		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="StandardVCL"/>
+			<CallTarget Targets="StandardVCL;AboutPluginModule"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="StandardVCL:Clean"/>
+			<CallTarget Targets="StandardVCL:Clean;AboutPluginModule:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="StandardVCL:Make"/>
+			<CallTarget Targets="StandardVCL:Make;AboutPluginModule:Make"/>
 		</Target>
 		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 	</Project>
