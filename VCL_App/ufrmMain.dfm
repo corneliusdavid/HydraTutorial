@@ -265,14 +265,13 @@ object frmVCLApp: TfrmVCLApp
   end
   object dlgPluginList: TTaskDialog
     Buttons = <>
-    Caption = 'List of Plug-ins'
+    Caption = 'Hydra Plugins'
     CommonButtons = [tcbClose]
     DefaultButton = tcbClose
     ExpandButtonCaption = 'Show Modules'
     Flags = [tfPositionRelativeToWindow]
     RadioButtons = <>
     Text = '0 Plugins'
-    Title = 'Hydra Plugins'
     Left = 192
     Top = 144
   end

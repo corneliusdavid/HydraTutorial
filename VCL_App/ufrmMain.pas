@@ -88,9 +88,11 @@ begin
   PluginList := TStringList.Create;
   ModuleList := TStringList.Create;
   try
+    // build displayable list of module names (DLLs)
     for i := 0 to HYModuleManager1.ModuleCount - 1 do
       ModuleList.Add(ExtractFileName(HYModuleManager1.Modules[i].FileName));
 
+    // build displayable list of plugins
     for i := 0 to HYModuleManager1.PluginDescriptorCount - 1 do begin
       PluginList.Add(Format('Name: %s - Version %d.%d (%s)', [HYModuleManager1.PluginDescriptors[i].Name,
                                                         HYModuleManager1.PluginDescriptors[i].MajorVersion,
@@ -100,9 +102,9 @@ begin
       PluginList.Add(EmptyStr);
     end;
 
-    dlgPluginList.Text := Format('There are %d plugin(s) in %d module(s) loaded.',
-                                 [PluginList.Count, ModuleList.Count]) +
-                          PluginList.GetText;
+    dlgPluginList.Title := Format('There are %d plugin(s) in %d module(s) loaded.',
+                                 [HYModuleManager1.PluginDescriptorCount, ModuleList.Count]);
+    dlgPluginList.Text := PluginList.GetText;
     dlgPluginList.ExpandedText := ModuleList.GetText;
     dlgPluginList.Execute;
   finally
