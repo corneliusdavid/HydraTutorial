@@ -229,4 +229,11 @@ object frmVCLApp: TfrmVCLApp
       C003C00300000000F007F00F0000000000000000000000000000000000000000
       000000000000}
   end
+  object HYModuleManager1: THYModuleManager
+    AutoLoad = False
+    EnforceSecurity = False
+    ResolveInterfacesToOwner = True
+    Left = 136
+    Top = 64
+  end
 end

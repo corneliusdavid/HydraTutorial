@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdActns, ImgList, ActnList, Menus, StdCtrls, ComCtrls, ToolWin;
+  Dialogs, StdActns, ImgList, ActnList, Menus, StdCtrls, ComCtrls, ToolWin,
+  uHYModuleManager;
 
 type
   TfrmVCLApp = class(TForm)
@@ -21,6 +22,7 @@ type
     ToolButton1: TToolButton;
     ToolButton4: TToolButton;
     ToolButton5: TToolButton;
+    HYModuleManager1: THYModuleManager;
     procedure actHelpAboutExecute(Sender: TObject);
   end;
 
