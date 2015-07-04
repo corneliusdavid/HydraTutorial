@@ -37,6 +37,8 @@ type
     pnlPlugins: TPanel;
     actHelpAboutPluginNonModal: TAction;
     Aboutfromapluginnonmodal1: TMenuItem;
+    actHelpAboutVersionedPluginModal: TAction;
+    VersionedAboutfromaplugin1: TMenuItem;
     procedure actHelpAboutExecute(Sender: TObject);
     procedure actLoadPluginsExecute(Sender: TObject);
     procedure actUnloadPluginsExecute(Sender: TObject);
@@ -48,8 +50,10 @@ type
     procedure actHelpAboutPluginNonModalExecute(Sender: TObject);
     procedure HYModuleManager1BeforeUnloadModule(Sender: THYModuleManager;
       aModule: THYModule);
+    procedure actHelpAboutVersionedPluginModalExecute(Sender: TObject);
   private
     FSimpleAboutPlugin: IHYVisualPlugin;
+    FVersionedAboutPlugin: IHYVisualPlugin;
   end;
 
 var
@@ -61,7 +65,7 @@ implementation
 {$R *.dfm}
 
 uses
-  uHYPluginDescriptors;
+  uHYPluginDescriptors, uVersionedAboutIntf;
 
 procedure TfrmVCLApp.actHelpAboutExecute(Sender: TObject);
 begin
@@ -84,6 +88,18 @@ begin
     ShowMessage('About plugin not loaded.');
 end;
 
+procedure TfrmVCLApp.actHelpAboutVersionedPluginModalExecute(Sender: TObject);
+begin
+  if Assigned(FVersionedAboutPlugin) then begin
+    (FVersionedAboutPlugin as IVersionedAboutInterface).ApplicationName := Application.Title;
+    (FVersionedAboutPlugin as IVersionedAboutInterface).MajorVersion := 1;
+    (FVersionedAboutPlugin as IVersionedAboutInterface).MinorVersion := 2;
+    (FVersionedAboutPlugin as IVersionedAboutInterface).Copyright := 'Copyright 2015';
+    FVersionedAboutPlugin.ShowWindowed;
+  end else
+    ShowMessage('Versioned About plugin not loaded.');
+end;
+
 procedure TfrmVCLApp.actLoadPluginsExecute(Sender: TObject);
 begin
   HYModuleManager1.LoadModules(ExtractFilePath(Application.ExeName) + '*.dll');
@@ -97,16 +113,23 @@ end;
 procedure TfrmVCLApp.FormCreate(Sender: TObject);
 begin
   FSimpleAboutPlugin := nil;
+  FVersionedAboutPlugin := nil;
 end;
 
 procedure TfrmVCLApp.HYModuleManager1AfterLoadModule(Sender: THYModuleManager; aModule: THYModule);
 var
   i: Integer;
+  PluginName: string;
 begin
-  for i := 0 to aModule.ModuleController.FactoryCount - 1 do
+  for i := 0 to aModule.ModuleController.FactoryCount - 1 do begin
+    PluginName := aModule.ModuleController.Factories[i].Descriptor.Name;
+
     if (aModule.ModuleController.Factories[i].Descriptor.PluginType = ptVisual) and
-       SameText('SimpleAboutPlugin', aModule.ModuleController.Factories[i].Descriptor.Name) then
-      HYModuleManager1.CreateVisualPlugin(aModule.ModuleController.Factories[i].Descriptor.Name, FSimpleAboutPlugin);
+       SameText('SimpleAboutPlugin', PluginName) then
+      HYModuleManager1.CreateVisualPlugin(PluginName, FSimpleAboutPlugin)
+    else if SameText('VersionedAboutPlugin', PluginName) then
+      HYModuleManager1.CreateVisualPlugin(PluginName, FVersionedAboutPlugin);
+  end;
 end;
 
 procedure TfrmVCLApp.HYModuleManager1BeforeUnloadModule(
@@ -115,10 +138,13 @@ var
   i: Integer;
 begin
   for i := 0 to aModule.ModuleController.FactoryCount - 1 do
-    if (aModule.ModuleController.Factories[i].Descriptor.PluginType = ptVisual) and
-       SameText('SimpleAboutPlugin', aModule.ModuleController.Factories[i].Descriptor.Name) and
-       Assigned(FSimpleAboutPlugin) then
-      FSimpleAboutPlugin := nil;
+    if (aModule.ModuleController.Factories[i].Descriptor.PluginType = ptVisual) then
+      if SameText('SimpleAboutPlugin', aModule.ModuleController.Factories[i].Descriptor.Name) and
+         Assigned(FSimpleAboutPlugin) then
+        FSimpleAboutPlugin := nil
+      else if SameText('VersionedAboutPlugin', aModule.ModuleController.Factories[i].Descriptor.Name) and
+              Assigned(FVersionedAboutPlugin) then
+        FVersionedAboutPlugin := nil;
 end;
 
 procedure TfrmVCLApp.actShowPluginsExecute(Sender: TObject);

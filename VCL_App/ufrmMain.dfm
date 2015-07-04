@@ -96,6 +96,9 @@ object frmVCLApp: TfrmVCLApp
       object Aboutfromapluginnonmodal1: TMenuItem
         Action = actHelpAboutPluginNonModal
       end
+      object VersionedAboutfromaplugin1: TMenuItem
+        Action = actHelpAboutVersionedPluginModal
+      end
     end
   end
   object ActionList1: TActionList
@@ -140,6 +143,14 @@ object frmVCLApp: TfrmVCLApp
       Category = 'Help'
       Caption = 'About from a plugin, &non-modal'
       OnExecute = actHelpAboutPluginNonModalExecute
+    end
+    object actHelpAboutVersionedPluginModal: TAction
+      Category = 'Help'
+      Caption = 'About from a plugin with &version information'
+      Hint = 
+        'Versioned About|Show a modal about box with version information ' +
+        'passed from the host.'
+      OnExecute = actHelpAboutVersionedPluginModalExecute
     end
   end
   object ImageList1: TImageList
