@@ -59,10 +59,6 @@ object frmVCLApp: TfrmVCLApp
     Height = 200
     Align = alClient
     TabOrder = 1
-    ExplicitLeft = 80
-    ExplicitTop = 120
-    ExplicitWidth = 185
-    ExplicitHeight = 41
   end
   object MainMenu1: TMainMenu
     Images = ImageList1
@@ -120,14 +116,17 @@ object frmVCLApp: TfrmVCLApp
       OnExecute = actHelpAboutExecute
     end
     object actLoadPlugins: TAction
+      Category = 'Plugins'
       Caption = '&Load Plugins'
       OnExecute = actLoadPluginsExecute
     end
     object actUnloadPlugins: TAction
+      Category = 'Plugins'
       Caption = '&Unload Plugins'
       OnExecute = actUnloadPluginsExecute
     end
     object actShowPlugins: TAction
+      Category = 'Plugins'
       Caption = '&Show Plugins'
       OnExecute = actShowPluginsExecute
     end
