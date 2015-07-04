@@ -45,6 +45,7 @@
 			<DCCReference Include="ufrmMain.pas">
 				<Form>frmVCLApp</Form>
 			</DCCReference>
+			<DCCReference Include="..\shared\uVersionedAboutIntf.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

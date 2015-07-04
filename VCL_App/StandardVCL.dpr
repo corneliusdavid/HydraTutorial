@@ -2,7 +2,8 @@ program StandardVCL;
 
 uses
   Forms,
-  ufrmMain in 'ufrmMain.pas' {frmVCLApp};
+  ufrmMain in 'ufrmMain.pas' {frmVCLApp},
+  uVersionedAboutIntf in '..\shared\uVersionedAboutIntf.pas';
 
 {$R *.res}
 
